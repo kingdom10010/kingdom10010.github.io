@@ -63,7 +63,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"gJlwWmDrUYFtLeF1z0DG4Opr-gzGzoHsz","app_key":"a7uTh2p03k0u27zoGo8f7zlc","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"gJlwWmDrUYFtLeF1z0DG4Opr-gzGzoHsz","app_key":"a7uTh2p03k0u27zoGo8f7zlc","server_url":"https://gjlwwmdr.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -83,14 +83,33 @@
   
 
   
-    
+
   
 
 
+
+
+  <!-- 新增：音频播放触发逻辑 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const music = document.getElementById('pageMusic');
+      if (music) {
+        document.body.addEventListener('click', function playMusic() {
+          music.play()
+            .then(() => {
+              console.log('音乐开始播放');
+              document.body.removeEventListener('click', playMusic);
+            })
+            .catch(err => {
+              console.warn('音乐播放需用户交互：', err);
+            });
+        });
+      }
+    });
+  </script>
 
   
 <meta name="generator" content="Hexo 7.3.0"></head>
-
 
 <body>
   
@@ -240,12 +259,6 @@
       
       <p class="h5">2025</p>
     
-    <a href="/2025/09/06/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" class="list-group-item list-group-item-action">
-      <time>09-06</time>
-      <div class="list-group-item-title">测试文章</div>
-    </a>
-  
-    
     <a href="/2025/09/06/hello-world/" class="list-group-item list-group-item-action">
       <time>09-06</time>
       <div class="list-group-item-title">Hello World</div>
@@ -363,8 +376,6 @@
 
 
 
-
-  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

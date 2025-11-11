@@ -26,8 +26,8 @@
 <meta property="og:site_name" content="海贼王">
 <meta property="og:description" content="* {             margin: 0;             padding: 0;             box-sizing: border-box;         }                  body {             font-family: &#39;Arial&#39;, sans-serif;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-10-30T07:17:21.156Z">
-<meta property="article:modified_time" content="2025-10-30T07:17:21.156Z">
+<meta property="article:published_time" content="2025-11-11T02:44:44.337Z">
+<meta property="article:modified_time" content="2025-11-11T02:44:44.337Z">
 <meta property="article:author" content="Luffy">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -65,7 +65,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"gJlwWmDrUYFtLeF1z0DG4Opr-gzGzoHsz","app_key":"a7uTh2p03k0u27zoGo8f7zlc","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"gJlwWmDrUYFtLeF1z0DG4Opr-gzGzoHsz","app_key":"a7uTh2p03k0u27zoGo8f7zlc","server_url":"https://gjlwwmdr.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -85,14 +85,33 @@
   
 
   
-    
+
   
 
 
+
+
+  <!-- 新增：音频播放触发逻辑 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const music = document.getElementById('pageMusic');
+      if (music) {
+        document.body.addEventListener('click', function playMusic() {
+          music.play()
+            .then(() => {
+              console.log('音乐开始播放');
+              document.body.removeEventListener('click', playMusic);
+            })
+            .catch(err => {
+              console.warn('音乐播放需用户交互：', err);
+            });
+        });
+      }
+    });
+  </script>
 
   
 <meta name="generator" content="Hexo 7.3.0"></head>
-
 
 <body>
   
@@ -275,26 +294,39 @@
             font-size: 18px;
             height: 27px;
         }
-        /* 音乐播放提示样式（与页面紫色调匹配） */
-        #playTip {
+        
+        /* 新增：音乐按钮样式 */
+        #musicBtn {
+            background-color: transparent;
+            border: 2px solid #EEAEEE;
             color: #EEAEEE;
+            padding: 10px 24px;
+            border-radius: 30px;
             font-size: 16px;
-            text-align: center;
-            margin-top: 10px;
-            display: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        #musicBtn:hover {
+            background-color: rgba(238, 174, 238, 0.2);
+            transform: scale(1.05);
+        }
+        
+        #musicBtn:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <canvas id="heartCanvas" width="840" height="680"></canvas>
-        <!-- 1. 新增：音乐播放标签（隐藏控件，预加载） -->
+        <!-- 新增：音乐控制按钮 -->
+        <button id="musicBtn">播放音乐</button>
         <audio id="pageMusic" hidden preload="auto">
-            <source src="/music/Always_Online.mp3" type="audio/mpeg"> <!-- 替换为你的音乐路径 -->
+            <source src="/music/Always_Online.mp3" type="audio/mpeg">
             您的浏览器不支持音频播放，请更新浏览器。
         </audio>
-        <!-- 2. 新增：备用播放提示（浏览器禁止自动播放时显示） -->
-        <div id="playTip">点击页面任意位置播放音乐</div>
     </div>
 
     <script>
@@ -359,36 +391,38 @@
             }
         }
         
-        // 3. 新增：音乐控制逻辑
+        // 修改：音乐控制逻辑（绑定按钮）
         function initMusicControl() {
             const pageMusic = document.getElementById('pageMusic');
-            const playTip = document.getElementById('playTip');
-
-            // 页面加载完成后尝试自动播放
-            document.addEventListener('DOMContentLoaded', () => {
-                pageMusic.play().catch(() => {
-                    // 浏览器禁止自动播放时，显示点击提示
-                    playTip.style.display = 'block';
-                });
-            });
-
-            // 点击页面任意位置播放（备用方案）
-            document.addEventListener('click', () => {
-                if (playTip.style.display === 'block' && pageMusic.paused) {
-                    pageMusic.play();
-                    playTip.style.display = 'none'; // 播放后隐藏提示
+            const musicBtn = document.getElementById('musicBtn');
+            let isPlaying = false; // 音乐播放状态标记
+            
+            // 按钮点击事件
+            musicBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    // 暂停音乐
+                    pageMusic.pause();
+                    musicBtn.textContent = '播放音乐';
+                } else {
+                    // 播放音乐
+                    pageMusic.play().catch(error => {
+                        console.error('播放失败:', error);
+                        alert('音乐播放失败，请检查浏览器设置或音频文件路径');
+                    });
+                    musicBtn.textContent = '暂停音乐';
                 }
+                isPlaying = !isPlaying;
             });
-
-            // 离开页面（关闭/刷新/跳转）时暂停音乐
+            
+            // 离开页面时暂停音乐
             window.addEventListener('beforeunload', () => {
-                if (!pageMusic.paused) {
+                if (isPlaying) {
                     pageMusic.pause();
                 }
             });
         }
         
-        // 初始化：先加载音乐控制，再初始化动画
+        // 初始化
         window.addEventListener('DOMContentLoaded', () => {
             initMusicControl();
             new HeartAnimationPlayer('heartCanvas', 'heart_data.json');
@@ -509,8 +543,6 @@
 
 
 
-
-  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
