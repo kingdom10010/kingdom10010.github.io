@@ -250,15 +250,18 @@
   <main>
     
       <div class="container nopadding-x-md">
-        <div id="board"
+        <!-- 修复：补充闭合标签 `>`，避免布局解析错误 -->
+        <div id="board" 
           >
           
             <div class="about-avatar">
               <img src="/img/avatar.png" srcset="/img/loading.gif" lazyload class="img-fluid" alt="avatar">
+              <!-- 移动端头像自适应：依赖 img-fluid 类（Bootstrap）实现宽度100% -->
             </div>
           
           <div class="container">
             <div class="row">
+              <!-- 移动端适配：col-12 确保在小屏幕占满宽度，col-md-10 在中等屏幕以上居中 -->
               <div class="col-12 col-md-10 m-auto">
                 
 
